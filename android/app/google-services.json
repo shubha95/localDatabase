@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "632812701972",
+    "project_id": "demoassessment-f3db1",
+    "storage_bucket": "demoassessment-f3db1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:632812701972:android:b5c1f5268612b11a4eda01",
+        "android_client_info": {
+          "package_name": "com.mynewproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOmUvZonwHkr0VjkLFZbVnmt0HaXbSUSc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
