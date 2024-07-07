@@ -1,12 +1,12 @@
-import React, { memo, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Text, Modal, Button, TouchableOpacity } from 'react-native';
 import TextInputComponent from './TextInputComponent';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import ButtonComponent from './ButtonComponent';
 const ModuleComponent = ({ modalVisible, handelModel, user, buttonHandel }) => {
-    const [name, setName] = useState(String(user.user_name))
-    const [contact, setcontact] = useState(String(user.user_contact))
-    const [address, setAddress] = useState(String(user.user_address))
+    const [name, setName] = useState(String(user?.user_name))
+    const [contect, setContect] = useState(String(user?.user_contact))
+    const [address, setAddress] = useState(String(user?.user_address))
 
 
     return (
@@ -24,7 +24,7 @@ const ModuleComponent = ({ modalVisible, handelModel, user, buttonHandel }) => {
                 </TouchableOpacity>
                 <View style={{ marginLeft: 20 }}>
                     <TextInputComponent
-                        tittle={'Enter Name'}
+                        tittel={'Enter Name'}
                         textHandel={(text) => setName(text)}
                         value={name}
                         autoCapitalize="none"
@@ -32,14 +32,14 @@ const ModuleComponent = ({ modalVisible, handelModel, user, buttonHandel }) => {
                         textContentType="emailAddress"
                     />
                     <TextInputComponent
-                        tittle={'Address'}
-                        textHandel={(text) => setcontact(text)}
-                        value={contact}
+                        tittel={'Address'}
+                        textHandel={(text) => setContect(text)}
+                        value={contect}
                         autoCapitalize="none"
 
                     />
                     <TextInputComponent
-                        tittle={'Address'}
+                        tittel={'Address'}
                         textHandel={(text) => setAddress(text)}
                         value={address}
                         autoCapitalize="none"
@@ -47,12 +47,15 @@ const ModuleComponent = ({ modalVisible, handelModel, user, buttonHandel }) => {
                         textContentType="emailAddress"
                     />
                 </View>
-                <ButtonComponent tittle={'Sign In'} buttonHandel={() => buttonHandel(name, contact, address, user.user_id)} />
+                <ButtonComponent tittel={'Sign In'} buttonHandel={()=>buttonHandel(name, contect, address, user.user_id)} />
+
+
+
             </View>
         </Modal>
     );
 }
-export default memo(ModuleComponent);
+export default ModuleComponent;
 const styles = StyleSheet.create({
     container: {
         flex: 1,

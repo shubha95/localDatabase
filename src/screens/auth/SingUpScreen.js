@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { useMemo, useState } from 'react'
+import { Alert, StyleSheet, Text, View } from 'react-native'
+import React, { useCallback, useState } from 'react'
 import TextInputComponent from '../../commanComponent/TextInputComponent'
 import ButtonComponent from '../../commanComponent/ButtonComponent'
 import { SingUpUser } from '../../comanFunction/FirebaseAuth'
@@ -10,37 +10,53 @@ const SingUpScreen = ({ navigation }) => {
     const [password, setPassword] = useState(null)
 
 
+    // Button Handel in Sign Up
+    const emailHandel = useCallback((text) => {
+        setEmail(text)
+    }, [])
+
+
+    //Button Handel in Sign Up
+    const passowdHandel = useCallback((text) => {
+        setPassword(text)
+    }, [])
+
     // Button Handel Sing In
-    const buttonHandel = useMemo(() => {
-        if (email === null) return
-        if (password === null) return
+    const buttonHandel = useCallback(() => {
+        if (!email || !password) {
+            Alert.alert('Error', 'Please enter both email and password.');
+            return;
+        }
         setLoding((priv) => !priv)
         SingUpUser(email, password, updateDate, errorCallBack)
-    },[])
- 
+    }, [email, password])
 
-    // CallBack Success
-    const updateDate = useMemo((data) => {
-        console.log(data)
-        setLoding((priv) => !priv)
-        navigation.navigate('Home')
-    },[])
 
-    // CallBack Error
-    const errorCallBack = useMemo((error) => {
+    // Sing In Button
+    const updateDate = useCallback(() => {
+        navigation.navigate('login')
+    }, [navigation])
+
+
+    // Error Handel 
+    const errorCallBack = useCallback(() => {
         setLoding((priv) => !priv)
-        alert(error)
-    },[])
+        Alert.alert(error);
+    }, [])
+
+
+
+
     return (
         <View style={styles.container}>
-            <LoaderComponent loading={loading} />
+            <LoaderComponent title={'Loding'} loading={loading} />
             <View style={styles.textContener}>
                 <Text style={styles.title}>Sign UP</Text>
             </View>
             <View style={{ flex: 0.6, alignItems: "center" }}>
                 <TextInputComponent
                     tittel={'Enter Email ID'}
-                    textHandel={(text) => setEmail(text)}
+                    textHandel={emailHandel}
                     value={email}
                     autoCapitalize="none"
                     keyboardType="email-address"
@@ -48,15 +64,14 @@ const SingUpScreen = ({ navigation }) => {
                 />
                 <TextInputComponent
                     tittel={'Enter Password'}
-                    textHandel={(text) => setPassword(text)}
+                    textHandel={passowdHandel}
                     value={password}
                     autoCapitalize="none"
-                    keyboardType="email-address"
                     secureTextEntry
                     textContentType="password"
                 />
-                <ButtonComponent tittel={'Sing Up'} buttonHandel={() => { buttonHandel() }} />
-                <ButtonComponent tittel={'Sign In'} buttonHandel={() => navigation.navigate('login')} />
+                <ButtonComponent tittel={'Sing Up'} buttonHandel={buttonHandel} />
+                <ButtonComponent tittel={'Sign In'} buttonHandel={updateDate} />
 
             </View>
         </View>

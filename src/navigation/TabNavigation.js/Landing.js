@@ -1,51 +1,49 @@
-import { StyleSheet } from 'react-native'
 import React from 'react'
-import Home from '../../screens/tabScreens/Home';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import DatabaseScreen from '../../screens/tabScreens/DatabaseScreen';
-import ContactFormScreen from '../../screens/tabScreens/ContactFormScreen';
-import ProfileScreen from '../../screens/tabScreens/ProfileScreen';
-import UserList from '../../screens/tabScreens/UserList';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import HomeStackScreen from './HomeStackScreen';
+import DashboardStackScreen from './DashboardStackScreen';
+import ProfileStackScreen from './ProfileStackScreen';
+import UserStackScreen from './UserStackScreen';
+import ContectStackScreen from './ContectStackScreen';
+
+// import ContactFormScreen from '../../screens/tabScreens/ContactFormScreen'; 
+
 const Landing = () => {
 
     const Tab = createBottomTabNavigator();
 
     return (
-
         <Tab.Navigator
             screenOptions={({ route }) => ({
+                headerShown: false,
                 tabBarIcon: ({ focused, size }) => {
                     let iconName;
 
-                    if (route.name === 'home') {
+                    if (route.name === 'Home') {
                         iconName = focused ? 'home' : 'home';
-                    } else if (route.name === 'dashboard') {
+                    } else if (route.name === 'Dashboard') {
                         iconName = focused ? 'dashboard' : 'dashboard';
-                    } else if (route.name === 'contact') {
-                        iconName = focused ? 'contacts' : 'contacts';
-                    } else if (route.name === 'profile') {
+                    } else if (route.name === 'Profile') {
                         iconName = focused ? 'profile' : 'profile';
-                    } else if (route.name === 'userList') {
-                        iconName = focused ? 'paperclip' : 'paperclip';
-                    }
-
-                    // You can return any component that you like here!
+                    } else if (route.name === 'User') {
+                        iconName = focused ? 'user' : 'user';
+                    } else if (route.name === 'Contect') {
+                        iconName = focused ? 'contacts' : 'contacts';
+                    } 
                     return <AntDesign name={iconName} size={size} color={'#000000'} />;
                 },
 
             })}
         >
-            <Tab.Screen name="home" component={Home} options={{ headerShown: false }} />
-            <Tab.Screen name="dashboard" component={DatabaseScreen} options={{ headerShown: false, unmountOnBlur: true }} />
-            <Tab.Screen name="contact" component={ContactFormScreen} options={{ headerShown: false, unmountOnBlur: true }} />
-            <Tab.Screen name="profile" component={ProfileScreen} options={{ headerShown: false, unmountOnBlur: true }} />
-            <Tab.Screen name="userList" component={UserList} options={{ headerShown: false, unmountOnBlur: true }} />
+            <Tab.Screen name="Home" component={HomeStackScreen} />
+            <Tab.Screen name="Dashboard" component={DashboardStackScreen} />
+            <Tab.Screen name="Profile" component={ProfileStackScreen} />
+            <Tab.Screen name="Contect" component={ContectStackScreen} />
+            <Tab.Screen name="User" component={UserStackScreen} />         
         </Tab.Navigator>
 
     )
 }
 
-export default Landing
-
-const styles = StyleSheet.create({})
+export default Landing;

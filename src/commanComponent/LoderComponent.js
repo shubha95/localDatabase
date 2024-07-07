@@ -1,13 +1,13 @@
-import React,{memo} from 'react';
+import React from 'react';
 import { View, ActivityIndicator, StyleSheet, Text } from 'react-native';
 
-const LoaderComponent = ({ loading }) => {
+const LoaderComponent = ({ loading, title }) => {
   if (!loading) return null;
 
   return (
     <View style={styles.container}>
       <ActivityIndicator size="large" color="#0000ff" />
-      <Text style={styles.loadingText}>Loading...</Text>
+      <Text style={styles.loadingText}>{title} ...</Text>
     </View>
   );
 };
@@ -30,4 +30,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default memo(LoaderComponent);
+export default LoaderComponent;

@@ -2,7 +2,7 @@ import { StyleSheet, Text, TextInput } from 'react-native'
 import React, { memo } from 'react'
 
 const TextInputComponent = ({ tittel, textHandel, value, ...props }) => {
-    // console.log('text Component --')
+     console.log('text Component')
     return (
         <>
             <TextInput
@@ -19,7 +19,7 @@ const TextInputComponent = ({ tittel, textHandel, value, ...props }) => {
     )
 }
 
-export default memo(TextInputComponent)
+export default memo(TextInputComponent) ;
 
 const styles = StyleSheet.create({
     input: {

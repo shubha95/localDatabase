@@ -1,17 +1,23 @@
-import { StyleSheet, Text, View, Modal } from 'react-native'
-import React, { useState } from 'react'
+import { StyleSheet, Text, View, Modal, FlatList } from 'react-native'
+import React, { useCallback, useState } from 'react'
 import SquliteFunation from '../../comanFunction/SquliteFunation'
-import ListComponent from '../../commanComponent/ListComponent'
 import ModuleComponent from '../../commanComponent/ModuleComponent'
+import UserListComponent from './contect/UserListComponent'
 const ProfileScreen = () => {
   const { useList, updateUser, deleteUser } = SquliteFunation(userdetails)
   const [userdetails, setUser] = useState(null)
   const [isActive, setIsActive] = useState(false)
+
+  //
   const handleUpdate = async (id) => {
+    console.log("userDetails =================", id)
     let userDetails = await useList.filter((item) => item.user_id == id);
     setUser(userDetails[0])
+    console.log("userDetails =================", userDetails)
     setIsActive((priv) => !priv)
   }
+
+  //
   const buttonHandel = (name, contect, address, id) => {
     console.log("Details ---", name, contect, address, id)
     let data = { name, contect, address, id }
@@ -20,16 +26,33 @@ const ProfileScreen = () => {
     setUser(useList)
   }
 
+
+  //
   const buttonDelete = (id) => {
     console.log("Delete", id)
     deleteUser(id)
     setUser(null)
   }
+
+  const renderItem = useCallback(({ item }) => (
+    <UserListComponent
+      data={item}
+      childCall={handleUpdate}
+      handeldelet={buttonDelete}
+      page={'profile'} />
+  ), [useList])
+
   return (
     <View style={{ flex: 1 }}>
-      <ListComponent data={useList} page={'profile'} handleUpdate={handleUpdate} handeldeletw={buttonDelete} />
+      <FlatList
+        data={useList}
+        renderItem={renderItem} 
+        keyExtractor={item => item.user_id.toString()}
+        initialNumToRender={5}
+      />
       {isActive &&
-        <ModuleComponent modalVisible={isActive} handelModel={() => setIsActive(!isActive)} user={userdetails} buttonHandel={buttonHandel} />}
+        <ModuleComponent modalVisible={isActive} handelModel={() => setIsActive(!isActive)} user={userdetails} buttonHandel={buttonHandel} />
+      }
     </View>
 
   )
