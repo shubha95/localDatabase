@@ -1,9 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import LandingNavigation from './src/navigation/LandingNavigation'
-import SquliteFunation from './src/comanFunction/SquliteFunation'
+import LandingNavigation from './src/navigation/LandingNavigation' 
 const App = () => {
-  SquliteFunation();
+ 
   return (
     <LandingNavigation />
   )

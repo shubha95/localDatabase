@@ -1,21 +1,39 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import TextInputComponent from '../../commanComponent/TextInputComponent'
 import ButtonComponent from '../../commanComponent/ButtonComponent'
 import SquliteFunation from '../../comanFunction/SquliteFunation'
-const ContactFormScreen = ({navigation}) => {
+const ContactFormScreen = ({ navigation }) => {
+  const { registerUser } = SquliteFunation(user)
 
   const [user, setUser] = useState({
     name: null,
     content: null,
     address: null
   })
-  const { registerUser } = SquliteFunation(user)
-  const buttonHandel = async () => {
-    if(!user.name || !user.content || !user.address) return;
+
+  // Name Input Text
+  const nameInput = useCallback((text) => {
+    setUser((priv) => ({ ...priv, name: text }))
+  }, [])
+
+  // Cotect Input Text
+  const contectInput = useCallback((text) => {
+    setUser((priv) => ({ ...priv, content: text }))
+  }, [])
+
+  // Addres Input Text
+  const addresstInput = useCallback((text) => {
+    setUser((priv) => ({ ...priv, address: text }))
+  }, [])
+
+  const buttonHandel = useCallback(() => {
+    if (!user.name || !user.content || !user.address) {
+      return;
+    }
     registerUser(user)
-  }
-  
+  }, [user.name, user.content, user.address])
+
   return (
     <View style={styles.contener}>
       <Text style={styles.textStyle}>Contact Form</Text>
@@ -23,7 +41,7 @@ const ContactFormScreen = ({navigation}) => {
       <View style={{ alignItems: 'center', marginTop: 10 }}>
         <TextInputComponent
           tittel={'Name'}
-          textHandel={(text) => setUser({ ...user, name: text })}
+          textHandel={nameInput}
           value={user?.name}
           autoCapitalize="none"
           keyboardType="email-address"
@@ -31,7 +49,7 @@ const ContactFormScreen = ({navigation}) => {
         />
         <TextInputComponent
           tittel={'Mobile No'}
-          textHandel={(text) => setUser({ ...user, content: text })}
+          textHandel={contectInput}
           value={user?.content}
           autoCapitalize="none"
           keyboardType="email-address"
@@ -39,7 +57,7 @@ const ContactFormScreen = ({navigation}) => {
         />
         <TextInputComponent
           tittel={'Addres'}
-          textHandel={(text) => setUser({ ...user, address: text })}
+          textHandel={addresstInput}
           value={user?.address}
           autoCapitalize="none"
           keyboardType="email-address"

@@ -1,8 +1,7 @@
-import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
+import React, { memo } from 'react'
 
-
-const CardComponent = ({ data, childCall }) => {
+const UserListComonent = ({ data, childCall }) => {
     console.log("f-------------------", data)
     return (
         <TouchableOpacity onPress={() => childCall(data.userId)}>
@@ -17,14 +16,12 @@ const CardComponent = ({ data, childCall }) => {
                 paddingVertical: 10,
                 margin: 10
             }}>
-                <Text style={{ color: '#000', fontSize: 14, fontWeight: '500', marginTop: 10 }}>{data?.userId}</Text>
-                <Text style={{ color: '#000', fontSize: 16, fontWeight: '500' }}>{data?.title}</Text>
-                <Text style={{ color: '#000', fontSize: 14, fontWeight: '500', marginTop: 10 }}>{data?.body}</Text>
+                <Text style={{ color: '#000', fontSize: 14, fontWeight: '500', marginTop: 10 }}>{data?.user_name}</Text>
+                <Text style={{ color: '#000', fontSize: 16, fontWeight: '500' }}>{data?.user_contact}</Text>
+                <Text style={{ color: '#000', fontSize: 14, fontWeight: '500', marginTop: 10 }}>{data?.user_address}</Text>
             </View>
         </TouchableOpacity>
-    );
-
+    )
 }
 
-
-export default CardComponent;
+export default memo(UserListComonent)

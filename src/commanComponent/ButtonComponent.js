@@ -1,14 +1,14 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { memo } from 'react'
 
-const ButtonComponent = ({ tittle, buttonHandel }) => {
-  //  console.log('button---asd')
+const ButtonComponent = ({ tittel, buttonHandel }) => {
+   console.log('button---comp')
   return (
     <TouchableOpacity
       onPress={buttonHandel}
       style={styles.button}
     >
-      <Text style={styles.buttonText}>{tittle}</Text>
+      <Text style={styles.buttonText}>{tittel}</Text>
     </TouchableOpacity>
 
   )

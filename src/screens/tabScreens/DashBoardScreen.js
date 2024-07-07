@@ -4,7 +4,7 @@ import React from 'react'
 import { BarChart } from "react-native-chart-kit";
 import SquliteFunation from '../../comanFunction/SquliteFunation';
 
-const DatabaseScreen = () => {
+const DashBoardScreen = () => {
   const { useList } = SquliteFunation()
 
   let userData = useList === null ? 0 : Math.floor(useList?.length)
@@ -43,6 +43,6 @@ const DatabaseScreen = () => {
   )
 }
 
-export default DatabaseScreen
+export default DashBoardScreen
 
 const styles = StyleSheet.create({})

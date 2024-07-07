@@ -1,9 +1,9 @@
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useCallback, useMemo, useState } from 'react'
-import TextInputComponent from '../commanComponent/TextInputComponent'
-import ButtonComponent from '../commanComponent/ButtonComponent'
-import { SingInUser } from '../comanFunction/FirebaseAuth'
-import LoaderComponent from '../commanComponent/LoderComponent'
+import TextInputComponent from '../../commanComponent/TextInputComponent'
+import ButtonComponent from '../../commanComponent/ButtonComponent'
+import { SingInUser } from '../../comanFunction/FirebaseAuth'
+import LoaderComponent from '../../commanComponent/LoderComponent'
 const LoginScreen = ({ navigation }) => {
   const [loading, setLoding] = useState(false)
   const [email, setEmail] = useState(null)
@@ -11,12 +11,20 @@ const LoginScreen = ({ navigation }) => {
 
 
   // Button Handel Sing In
-  const buttonHandel = () => {
-    if (!email || !password) return
+  const buttonHandel = useCallback(() => {
+    if (!email || !password){
+      Alert.alert('Error', 'Please enter both email and password.');
+      return;
+    } 
     setLoding((priv) => !priv)
     SingInUser(email, password, updateDate, errorCallBack)
-  }
+  }, [email, password]);
 
+ 
+// Button Handel Sing Up
+  const buttonHAndelSingIn = useCallback(() => {
+    navigation.navigate('singUp')
+  }, [navigation])
 
   // Button Handel in Sign Up
   const emailHandel = useCallback((text) => {
@@ -24,11 +32,11 @@ const LoginScreen = ({ navigation }) => {
   }, [])
 
 
-  // Button Handel in Sign Up
+  //Button Handel in Sign Up
   const passowdHandel = useCallback((text) => {
     setPassword(text)
   }, [])
-  
+
   // CallBack 
   const updateDate = () => {
     setLoding((priv) => !priv)
@@ -37,7 +45,7 @@ const LoginScreen = ({ navigation }) => {
 
   const errorCallBack = (error) => {
     setLoding((priv) => !priv)
-    alert(error)
+    Alert.alert('Error', error.message);
   }
 
 
@@ -51,7 +59,7 @@ const LoginScreen = ({ navigation }) => {
       <View style={{ flex: 0.6, alignItems: "center" }}>
         <TextInputComponent
           tittel={'Enter Email ID'}
-          textHandel={(text) => emailHandel(text)}
+          textHandel={emailHandel}
           value={email}
           autoCapitalize="none"
           keyboardType="email-address"
@@ -60,15 +68,16 @@ const LoginScreen = ({ navigation }) => {
 
         <TextInputComponent
           tittel={'Enter Password'}
-          textHandel={(text) => passowdHandel(text)}
+          textHandel={passowdHandel}
           value={password}
           autoCapitalize="none"
-          keyboardType="email-address"
           secureTextEntry
           textContentType="password"
         />
+
+
         <ButtonComponent tittel={'Sign In'} buttonHandel={buttonHandel} />
-        <ButtonComponent tittel={'Sing Up'} buttonHandel={() => navigation.navigate('singUp')} />
+        <ButtonComponent tittel={'Sing Up'} buttonHandel={buttonHAndelSingIn} />
 
 
       </View>

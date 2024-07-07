@@ -1,10 +1,8 @@
 import auth from '@react-native-firebase/auth';
-
-// Sing Up User
-const SingUpUser = (email, password, updateDate, errorCallBack) => {
-    console.log("dasdsa", email, password)
+const SingUpUser = (email, passweor, updateDate, errorCallBack) => {
+    console.log("dasdsa", email, passweor)
     auth()
-        .createUserWithEmailAndPassword(email, password,)
+        .createUserWithEmailAndPassword(email, passweor,)
         .then((res) => {
             console.log('User account created & signed in!', res);
             updateDate(res)
@@ -21,20 +19,20 @@ const SingUpUser = (email, password, updateDate, errorCallBack) => {
                 return errorCallBack(errors)
             }
 
-            console.error("error", error);
+            console.error("errrororro", error);
             let errors = 'That email address is invalid!'
             return errorCallBack(errors)
         });
 }
 
-// Sing In User
-const SingInUser = (email, password, updateDate, errorCallBack) => {
-    auth().signInWithEmailAndPassword(email, password).then((res) => {
+
+const SingInUser = (email, passweor, updateDate, errorCallBack) => {
+    auth().signInWithEmailAndPassword(email, passweor).then((res) => {
         console.log('User account signed in!', res);
         updateDate(res)
     }).catch(error => {
              let errors = 'That email address is invalid!'
-        console.log('error', error)
+        console.log('errror', error)
         return errorCallBack(errors)
     })
 }

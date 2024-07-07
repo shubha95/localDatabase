@@ -7,7 +7,9 @@ const SquliteFunation = (val) => {
   const [db, setDb] = useState(null);
   const [useList, setUserList] = useState(null)
 
-  // create Data Base and Connection
+
+
+  // create Data Base and Canaection
   useEffect(() => {
     const initializeDb = async () => {
       try {
@@ -17,11 +19,12 @@ const SquliteFunation = (val) => {
         console.error('Failed to open database:', error);
       }
     }
+
     initializeDb();
   }, []);
 
 
-  // check user Table and create
+  // check user Avlabal or Not 
   useEffect(() => {
     if (db) {
       db.transaction((txn) => {
@@ -84,7 +87,7 @@ const SquliteFunation = (val) => {
     });
   }
 
-  // Get All user Data
+  // Get All user 
   const allUserData = () => {
     db.transaction((tx) => {
       tx.executeSql(
@@ -105,6 +108,7 @@ const SquliteFunation = (val) => {
 
   // Delete user 
   let deleteUser = (id) => {
+    console.log('user================================== recive', id)
     db.transaction((tx) => {
       tx.executeSql(
         'DELETE FROM  table_user where user_id=?',
@@ -112,8 +116,8 @@ const SquliteFunation = (val) => {
         (tx, results) => {
           console.log('Results', results.rowsAffected);
           if (results.rowsAffected > 0) {
-            alert('User Delete Success');
-            console.log('Delete Data Success')
+            alert('User Detelte Sucess');
+            console.log('Delete Data Sucess')
             return true
           } else {
             alert('Please insert a valid User Id');
@@ -125,7 +129,7 @@ const SquliteFunation = (val) => {
 
 
 
-  // User Update Success
+  // Update User
   const updateUser = (user) => {
     console.log('user================================== recive', user)
     // console.log(inputUserId, userName, userContact, userAddress);
@@ -136,7 +140,7 @@ const SquliteFunation = (val) => {
         (tx, results) => {
           console.log('Results', results.rowsAffected);
           if (results.rowsAffected > 0) {
-            alert('User Details update Sucess');
+            alert('User Details update Sucess'); 
             allUserData()
           } else alert('Updation Failed');
         }
